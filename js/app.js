@@ -498,6 +498,34 @@ window.addEventListener('load', function() {
     }, 100);
 });
 
+// Australian wildlife emoji theme
+const australianTheme = [
+    {name: 'kangaroo', emoji: '🦘', display: 'Kangaroo'},
+    {name: 'koala', emoji: '🐨', display: 'Koala'},
+    {name: 'crocodile', emoji: '🐊', display: 'Crocodile'},
+    {name: 'snake', emoji: '🐍', display: 'Snake'},
+    {name: 'turtle', emoji: '🐢', display: 'Sea Turtle'},
+    {name: 'shark', emoji: '🦈', display: 'Shark'},
+    {name: 'dolphin', emoji: '🐬', display: 'Dolphin'},
+    {name: 'whale', emoji: '🐋', display: 'Whale'},
+    {name: 'eagle', emoji: '🦅', display: 'Wedge-tailed Eagle'},
+    {name: 'parrot', emoji: '🦜', display: 'Parrot'},
+    {name: 'platypus', emoji: '🦫', display: 'Platypus'},
+    {name: 'spider', emoji: '🕷️', display: 'Spider'},
+    {name: 'boomerang', emoji: '🪃', display: 'Boomerang'},
+    {name: 'surfboard', emoji: '🏄', display: 'Surfing'},
+    {name: 'beach', emoji: '🏖️', display: 'Beach'},
+    {name: 'flag', emoji: '🇦🇺', display: 'Australian Flag'},
+    {name: 'operahouse', emoji: '🎭', display: 'Opera House'},
+    {name: 'cricket', emoji: '🏏', display: 'Cricket'},
+    {name: 'football', emoji: '🏉', display: 'Rugby'},
+    {name: 'tree', emoji: '🌳', display: 'Eucalyptus'},
+    {name: 'flower', emoji: '🌸', display: 'Waratah'},
+    {name: 'sun', emoji: '☀️', display: 'Aussie Sun'},
+    {name: 'bbq', emoji: '🍖', display: 'BBQ'},
+    {name: 'shrimp', emoji: '🦐', display: 'Prawns'}
+];
+
 function changeDifficulty() {
     const difficulty = document.getElementById('difficulty').value;
     currentDifficulty = difficulty;
@@ -506,10 +534,8 @@ function changeDifficulty() {
     const [cols, rows] = difficulty.split('x').map(Number);
     const totalCards = cols * rows;
 
-    // Icon types to use
-    const iconTypes = ['diamond', 'plane', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb',
-                       'heart', 'star', 'cloud', 'sun', 'moon', 'fire', 'snowflake', 'music',
-                       'bell', 'flag', 'gift', 'key', 'lock', 'magnet', 'paperclip', 'trophy'];
+    // Use Australian theme
+    const iconTypes = australianTheme;
 
     // Clear existing cards
     deck.innerHTML = '';
@@ -519,20 +545,21 @@ function changeDifficulty() {
     const pairsNeeded = totalCards / 2;
     const cardData = [];
     for (let i = 0; i < pairsNeeded; i++) {
-        const icon = iconTypes[i % iconTypes.length];
-        cardData.push({type: icon, icon: icon});
-        cardData.push({type: icon, icon: icon});
+        const item = iconTypes[i % iconTypes.length];
+        cardData.push({type: item.name, emoji: item.emoji, display: item.display});
+        cardData.push({type: item.name, emoji: item.emoji, display: item.display});
     }
 
     // Shuffle
     cardData.sort(() => 0.5 - Math.random());
 
-    // Create card elements
+    // Create card elements with emoji
     cardData.forEach((data, index) => {
         const li = document.createElement('li');
         li.className = 'card';
         li.setAttribute('type', data.type);
-        li.innerHTML = `<i class="fa fa-${data.icon}"></i>`;
+        li.setAttribute('data-display', data.display);
+        li.innerHTML = `<span class="card-emoji">${data.emoji}</span>`;
         deck.appendChild(li);
     });
 
@@ -552,8 +579,10 @@ function changeDifficulty() {
     deck.style.gridTemplateRows = `repeat(${rows}, 90px)`;
     deck.style.display = 'grid';
     deck.style.gap = '10px';
-    deck.style.width = 'fit-content';
-    deck.style.height = 'auto';
+    // Remove width/height style overrides - let CSS handle it
+    deck.style.width = '';
+    deck.style.height = '';
+    deck.style.minWidth = '';
 
     // Update card sizes to be consistent
     cards.forEach(card => {

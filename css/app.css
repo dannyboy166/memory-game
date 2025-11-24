@@ -147,7 +147,8 @@ h1 {
 
 .deck {
 	width: fit-content;
-	max-width: 90%;
+	min-width: fit-content;
+	max-width: calc(100vw - 40px);
 	background: linear-gradient(135deg, #b0acf1 0%, #7ab9f1 50%, #a7f0f5 100%); /* Purple to blue to cyan gradient! */
 	padding: 1.5rem;
 	border-radius: 15px;
@@ -160,6 +161,8 @@ h1 {
 	align-items: center;
 	margin: 0 auto 2em;
 	border: 3px solid rgba(255, 255, 255, 0.3);
+	box-sizing: border-box;
+	overflow: visible;
 }
 
 .deck .card {
@@ -196,37 +199,116 @@ h1 {
 	font-size: 45px;
 }
 
-/* Colorful card icons - each icon gets a different SASCO color! */
-.deck .card.open[type="diamond"] {
-	background: linear-gradient(135deg, #e56bbf 0%, #d946a6 100%); /* SASCO pink */
+/* Emoji styling for Australian theme */
+.card-emoji {
+	font-size: 55px;
+	line-height: 1;
+	display: block;
+	opacity: 0;
+	transition: opacity 0.3s;
 }
 
-.deck .card.open[type="plane"] {
-	background: linear-gradient(135deg, #7ab9f1 0%, #60a5fa 100%); /* SASCO sky blue */
+.deck .card.show .card-emoji,
+.deck .card.open .card-emoji,
+.deck .card.match .card-emoji {
+	opacity: 1;
 }
 
-.deck .card.open[type="anchor"] {
-	background: linear-gradient(135deg, #d793fa 0%, #c084fc 100%); /* Light purple */
+/* Colorful card icons - Australian theme with vibrant colors! */
+.deck .card.open[type="kangaroo"] {
+	background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); /* Outback orange */
 }
 
-.deck .card.open[type="bolt"] {
-	background: linear-gradient(135deg, #f4ef7d 0%, #fde047 100%); /* Soft yellow */
+.deck .card.open[type="koala"] {
+	background: linear-gradient(135deg, #a3a3a3 0%, #737373 100%); /* Koala grey */
 }
 
-.deck .card.open[type="cube"] {
-	background: linear-gradient(135deg, #cef577 0%, #a3e635 100%); /* Lime green */
+.deck .card.open[type="crocodile"] {
+	background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); /* Croc green */
 }
 
-.deck .card.open[type="leaf"] {
-	background: linear-gradient(135deg, #bee9c3 0%, #86efac 100%); /* Mint green */
+.deck .card.open[type="snake"] {
+	background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); /* Snake gold */
 }
 
-.deck .card.open[type="bicycle"] {
-	background: linear-gradient(135deg, #a7f0f5 0%, #67e8f9 100%); /* Cyan */
+.deck .card.open[type="turtle"] {
+	background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); /* Ocean blue */
 }
 
-.deck .card.open[type="bomb"] {
-	background: linear-gradient(135deg, #ee836b 0%, #f97316 100%); /* Coral */
+.deck .card.open[type="shark"] {
+	background: linear-gradient(135deg, #475569 0%, #334155 100%); /* Shark grey */
+}
+
+.deck .card.open[type="dolphin"] {
+	background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); /* Dolphin cyan */
+}
+
+.deck .card.open[type="whale"] {
+	background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); /* Deep blue */
+}
+
+.deck .card.open[type="eagle"] {
+	background: linear-gradient(135deg, #78350f 0%, #451a03 100%); /* Brown */
+}
+
+.deck .card.open[type="parrot"] {
+	background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); /* Parrot green */
+}
+
+.deck .card.open[type="platypus"] {
+	background: linear-gradient(135deg, #92400e 0%, #78350f 100%); /* Brown */
+}
+
+.deck .card.open[type="spider"] {
+	background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); /* Red */
+}
+
+.deck .card.open[type="boomerang"] {
+	background: linear-gradient(135deg, #a16207 0%, #854d0e 100%); /* Wood brown */
+}
+
+.deck .card.open[type="surfboard"] {
+	background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); /* Surf cyan */
+}
+
+.deck .card.open[type="beach"] {
+	background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); /* Sand yellow */
+}
+
+.deck .card.open[type="flag"] {
+	background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); /* Aussie blue */
+}
+
+.deck .card.open[type="operahouse"] {
+	background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%); /* White/grey */
+}
+
+.deck .card.open[type="cricket"] {
+	background: linear-gradient(135deg, #84cc16 0%, #65a30d 100%); /* Green pitch */
+}
+
+.deck .card.open[type="football"] {
+	background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); /* Sport red */
+}
+
+.deck .card.open[type="tree"] {
+	background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); /* Eucalyptus green */
+}
+
+.deck .card.open[type="flower"] {
+	background: linear-gradient(135deg, #ec4899 0%, #db2777 100%); /* Pink flower */
+}
+
+.deck .card.open[type="sun"] {
+	background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); /* Bright yellow */
+}
+
+.deck .card.open[type="bbq"] {
+	background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); /* BBQ red */
+}
+
+.deck .card.open[type="shrimp"] {
+	background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); /* Prawn orange */
 }
 
 .deck .card.match {
@@ -495,7 +577,8 @@ h1 {
 
 @media (max-width: 320px) {
 	.deck {
-		width: 85%;
+		max-width: calc(100vw - 20px);
+		padding: 1rem;
 	}
 
 	.deck .card {
@@ -541,15 +624,7 @@ h1 {
 		font-size: 22px;
 	}
 
-	.deck {
-		width: 660px;
-		height: 680px;
-	}
-
-	.deck .card {
-		height: 125px;
-		width: 125px;
-	}
+	/* Removed fixed width/height - let the grid size determine it */
 
 	.popup {
 		width: 60%;
