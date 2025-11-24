@@ -14,25 +14,55 @@
 
     <div class="container">
         <header>
-            <h1>Memory Game</h1>
+            <h1>🎮 Memory Game 🎮</h1>
         </header>
 
-        <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+        <!-- Difficulty Selector -->
+        <div class="difficulty-selector">
+            <label for="difficulty">Difficulty:</label>
+            <select id="difficulty" onchange="changeDifficulty()">
+                <option value="3x2">Easy (3×2)</option>
+                <option value="4x3">Medium (4×3)</option>
+                <option value="4x4" selected>Normal (4×4)</option>
+                <option value="5x4">Hard (5×4)</option>
+                <option value="6x4">Very Hard (6×4)</option>
+                <option value="6x6">Expert (6×6)</option>
+                <option value="8x6">Impossible (8×6)</option>
+            </select>
+            <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔇 Music Off</button>
+        </div>
 
-        	<span class="moves">0</span> Move(s)
-
-            <div class="timer">
+        <!-- High Scores and Score Panel Container -->
+        <div class="scores-container">
+            <!-- High Scores Display -->
+            <div class="high-scores">
+                <div class="high-score-item">
+                    <span>🏆 Best Time:</span>
+                    <span id="bestTime">--</span>
+                </div>
+                <div class="high-score-item">
+                    <span>⭐ Best Moves:</span>
+                    <span id="bestMoves">--</span>
+                </div>
             </div>
 
-            <div class="restart" onclick=startGame()>
-        		<i class="fa fa-repeat"></i>
-        	</div>
-        </section>
+            <section class="score-panel">
+                <ul class="stars">
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                </ul>
+
+                <span class="moves">0</span> Move(s)
+
+                <div class="timer">
+                </div>
+
+                <div class="restart" onclick=startGame()>
+                    <i class="fa fa-repeat"></i>
+                </div>
+            </section>
+        </div>
 
         <ul class="deck" id="card-deck">
             <li class="card" type="diamond">
@@ -103,7 +133,17 @@
             </div>
         </div>
 
+        <footer class="sasco-footer">
+            <p>Part of the <strong>SASCO Games</strong> collection for schools 🎓</p>
+            <p class="attribution">Original concept by Udacity FEND Program | Customized for SASCO</p>
+        </footer>
+
     </div>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <!-- Game Script -->
     <script src="js/app.js"></script>
 </body>
 </html>

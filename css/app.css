@@ -17,7 +17,7 @@ body {
 }
 
 body {
-	background: #ffffff;
+	background: #a7f0f5; /* SASCO light cyan */
 	font-family: 'Permanent Marker', cursive;
 	font-size: 16px;
 }
@@ -27,10 +27,116 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: 20px 10px;
 }
 
 h1 {
 	font-family: 'Gloria Hallelujah', cursive;
+	color: #f4ef7d; /* SASCO soft yellow */
+	font-size: 3.5rem;
+	-webkit-text-stroke: 2px #000;
+	text-stroke: 2px #000;
+	text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+	margin: 10px 0 15px 0;
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+	background: white;
+	padding: 15px 25px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-bottom: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	flex-wrap: wrap;
+	max-width: 600px;
+}
+
+.difficulty-selector label {
+	font-weight: bold;
+	color: #6b7280;
+	font-size: 18px;
+}
+
+.difficulty-selector select {
+	padding: 8px 15px;
+	border-radius: 8px;
+	border: 2px solid #7ab9f1;
+	font-size: 16px;
+	font-family: 'Permanent Marker', cursive;
+	background: white;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.difficulty-selector select:hover {
+	border-color: #22c55e;
+	transform: scale(1.02);
+}
+
+.music-btn {
+	padding: 8px 20px;
+	border-radius: 8px;
+	border: 2px solid #eab308;
+	background: #f4ef7d;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+
+.music-btn:hover {
+	background: #eab308;
+	transform: scale(1.05);
+}
+
+/* Scores Container - holds both high scores and score panel horizontally */
+.scores-container {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	align-items: stretch;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+	max-width: 900px;
+}
+
+/* High Scores */
+.high-scores {
+	background: white;
+	padding: 15px 25px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	flex: 1;
+	min-width: 250px;
+}
+
+.high-score-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+}
+
+.high-score-item span:first-child {
+	font-weight: bold;
+	color: #6b7280;
+	font-size: 14px;
+}
+
+.high-score-item span:last-child {
+	font-size: 24px;
+	font-weight: bold;
+	color: #22c55e;
+	font-family: 'Permanent Marker', cursive;
 }
 
 
@@ -40,36 +146,45 @@ h1 {
 
 
 .deck {
-	width: 85%;
-	background: #716F71;
-	padding: 1rem;
-	border-radius: 4px;
-	box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+	width: fit-content;
+	max-width: 90%;
+	background: linear-gradient(135deg, #b0acf1 0%, #7ab9f1 50%, #a7f0f5 100%); /* Purple to blue to cyan gradient! */
+	padding: 1.5rem;
+	border-radius: 15px;
+	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.3), 0 0 40px rgba(122, 185, 241, 0.3);
+	display: grid;
+	grid-template-columns: repeat(4, 90px);
+	grid-template-rows: repeat(4, 90px);
+	gap: 10px;
+	justify-content: center;
 	align-items: center;
-	margin: 0 0 3em;
+	margin: 0 auto 2em;
+	border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .deck .card {
-	height: 3.7rem;
-	width: 3.7rem;
-	margin: 0.2rem 0.2rem;
-	background: #141214;;
+	height: 90px;
+	width: 90px;
+	background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%); /* Gradient gray card back */
 	font-size: 0;
 	color: #ffffff;
-	border-radius: 5px;
+	border-radius: 10px;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	transition: all 0.3s ease;
+	border: 2px solid rgba(255,255,255,0.2);
+}
+
+.deck .card:hover {
+	transform: scale(1.08) rotate(2deg);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .deck .card.open {
 	transform: rotateY(0);
-	background: #02b3e4;
 	cursor: default;
 	animation-name: flipInY;
 	-webkit-backface-visibility: visible !important;
@@ -78,17 +193,52 @@ h1 {
 }
 
 .deck .card.show {
-	font-size: 33px;
+	font-size: 45px;
+}
+
+/* Colorful card icons - each icon gets a different SASCO color! */
+.deck .card.open[type="diamond"] {
+	background: linear-gradient(135deg, #e56bbf 0%, #d946a6 100%); /* SASCO pink */
+}
+
+.deck .card.open[type="plane"] {
+	background: linear-gradient(135deg, #7ab9f1 0%, #60a5fa 100%); /* SASCO sky blue */
+}
+
+.deck .card.open[type="anchor"] {
+	background: linear-gradient(135deg, #d793fa 0%, #c084fc 100%); /* Light purple */
+}
+
+.deck .card.open[type="bolt"] {
+	background: linear-gradient(135deg, #f4ef7d 0%, #fde047 100%); /* Soft yellow */
+}
+
+.deck .card.open[type="cube"] {
+	background: linear-gradient(135deg, #cef577 0%, #a3e635 100%); /* Lime green */
+}
+
+.deck .card.open[type="leaf"] {
+	background: linear-gradient(135deg, #bee9c3 0%, #86efac 100%); /* Mint green */
+}
+
+.deck .card.open[type="bicycle"] {
+	background: linear-gradient(135deg, #a7f0f5 0%, #67e8f9 100%); /* Cyan */
+}
+
+.deck .card.open[type="bomb"] {
+	background: linear-gradient(135deg, #ee836b 0%, #f97316 100%); /* Coral */
 }
 
 .deck .card.match {
 	cursor: default;
-	background: #E5F720;
-	font-size: 33px;
+	background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); /* SASCO green gradient for matches! */
+	font-size: 45px;
 	animation-name: rubberBand;
 	-webkit-backface-visibility: visible !important;
 	backface-visibility: visible !important;
 	animation-duration: .75s;
+	box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 4px 8px rgba(0, 0, 0, 0.3);
+	border: 3px solid rgba(255, 255, 255, 0.4);
 }
 
 .deck .card.unmatched {
@@ -96,7 +246,7 @@ h1 {
 	-webkit-backface-visibility: visible !important;
 	backface-visibility: visible !important;
 	animation-duration: .75s;
-	background: #e2043b;
+	background: #ef4444; /* Red for wrong match */
 }
 
 .deck .card.disabled {
@@ -111,34 +261,58 @@ h1 {
 
 
 .score-panel {
-	text-align: left;
-	margin-bottom: 10px;
+	text-align: center;
+	background: white;
+	padding: 15px 25px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	flex: 1;
+	min-width: 250px;
 }
 
 .score-panel .stars {
 	margin: 0;
 	padding: 0;
 	display: inline-block;
-	margin: 0 5px 0 0;
+	margin: 0 10px 0 0;
 }
 
 .score-panel .stars li {
 	list-style: none;
 	display: inline-block;
+	font-size: 24px;
 }
 
 .score-panel .restart {
-	float: right;
 	cursor: pointer;
+	font-size: 24px;
+	color: #22c55e;
+	transition: transform 0.2s;
+}
+
+.score-panel .restart:hover {
+	transform: rotate(180deg);
+	color: #16a34a;
 }
 
 .fa-star {
-	color: #FFD700;
+	color: #eab308; /* SASCO yellow stars! */
 }
 
 .timer {
 	display: inline-block;
 	margin: 0 1rem;
+	font-weight: bold;
+	color: #7ab9f1; /* SASCO blue */
+}
+
+.moves {
+	font-weight: bold;
+	color: #22c55e; /* SASCO green */
 }
 
 
@@ -166,19 +340,24 @@ h1 {
   
 .popup {
 	margin: 70px auto;
-	padding: 20px;
-	background: #ffffff;
-	border-radius: 5px;
+	padding: 30px;
+	background: linear-gradient(135deg, #a7f0f5 0%, #7ab9f1 100%);
+	border-radius: 15px;
 	width: 85%;
 	position: relative;
 	transition: all 5s ease-in-out;
 	font-family: 'Gloria Hallelujah', cursive;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-  
+
 .popup h2 {
 	margin-top: 0;
-	color: #333;
-	font-family: Tahoma, Arial, sans-serif;
+	color: #f4ef7d; /* SASCO yellow */
+	font-family: 'Gloria Hallelujah', cursive;
+	font-size: 2.5rem;
+	-webkit-text-stroke: 1px #000;
+	text-stroke: 1px #000;
+	text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
 }
 
 .popup .close {
@@ -186,14 +365,16 @@ h1 {
 	top: 20px;
 	right: 30px;
 	transition: all 200ms;
-	font-size: 30px;
+	font-size: 40px;
 	font-weight: bold;
 	text-decoration: none;
-	color: #333;
+	color: #fff;
+	text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
 }
 
 .popup .close:hover {
-	color: #E5F720;
+	color: #22c55e; /* SASCO green */
+	transform: scale(1.2);
 }
 
 .popup .content-1,
@@ -201,6 +382,9 @@ h1 {
 	max-height: 30%;
 	overflow: auto;
 	text-align: center;
+	color: white;
+	font-size: 1.2rem;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .show {
@@ -213,15 +397,24 @@ h1 {
 }
 
 #play-again {
-	background-color: #141214;
-	padding: 0.7rem 1rem;
-	font-size: 1.1rem;
+	background-color: #22c55e; /* SASCO green button */
+	padding: 0.9rem 2rem;
+	font-size: 1.3rem;
 	display: block;
-	margin: 0 auto;
-	width: 50%;
+	margin: 20px auto 0;
+	width: 60%;
 	font-family: 'Gloria Hallelujah', cursive;
 	color: #ffffff;
-	border-radius: 5px;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#play-again:hover {
+	background-color: #16a34a;
+	transform: scale(1.05);
 }
 
 /* animations */
@@ -314,6 +507,34 @@ h1 {
 
 /* For Tablets and larger screens
 ****************/
+
+/* SASCO Footer Styles */
+
+.sasco-footer {
+	margin-top: 30px;
+	padding: 20px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	max-width: 600px;
+}
+
+.sasco-footer p {
+	margin: 5px 0;
+	color: #6b7280;
+	font-size: 14px;
+}
+
+.sasco-footer strong {
+	color: #22c55e; /* SASCO green */
+	font-weight: bold;
+}
+
+.sasco-footer .attribution {
+	font-size: 12px;
+	color: #9ca3af;
+}
 
 @media (min-width: 768px) {
 	.container {

@@ -1,3 +1,122 @@
+// ============================================
+// 🎮 SASCO GAMES - SOUND EFFECTS & CONFETTI
+// ============================================
+
+// Sound effects using Web Audio API
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(frequency, duration, type = 'sine') {
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.frequency.value = frequency;
+    oscillator.type = type;
+
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration);
+}
+
+// Sound effects
+function playFlipSound() {
+    playSound(400, 0.1, 'sine');
+}
+
+function playMatchSound() {
+    playSound(600, 0.2, 'sine');
+    setTimeout(() => playSound(800, 0.2, 'sine'), 100);
+}
+
+function playWrongSound() {
+    playSound(200, 0.3, 'sawtooth');
+}
+
+function playWinSound() {
+    playSound(523, 0.15, 'sine');
+    setTimeout(() => playSound(659, 0.15, 'sine'), 150);
+    setTimeout(() => playSound(784, 0.15, 'sine'), 300);
+    setTimeout(() => playSound(1047, 0.4, 'sine'), 450);
+}
+
+// Confetti celebration
+function celebrateWin() {
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        }));
+        confetti(Object.assign({}, defaults, {
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        }));
+    }, 250);
+}
+
+// Encouraging messages - positioned at TOP of screen, outside game area
+function showMessage(text, color = '#22c55e') {
+    const message = document.createElement('div');
+    message.textContent = text;
+    message.style.cssText = `
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: ${color};
+        color: white;
+        padding: 15px 35px;
+        border-radius: 15px;
+        font-size: 24px;
+        font-weight: bold;
+        z-index: 10000;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        animation: slideDown 0.3s ease-out;
+        font-family: 'Gloria Hallelujah', cursive;
+    `;
+    document.body.appendChild(message);
+    setTimeout(() => {
+        message.style.animation = 'slideUp 0.3s ease-in';
+        setTimeout(() => message.remove(), 300);
+    }, 1200);
+}
+
+// Add CSS animations for messages
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideDown {
+        0% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+        100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    @keyframes slideUp {
+        0% { transform: translateX(-50%) translateY(0); opacity: 1; }
+        100% { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+// ============================================
+// ORIGINAL GAME CODE
+// ============================================
+
 // cards array holds all cards
 let card = document.getElementsByClassName("card");
 let cards = [...card];
@@ -50,9 +169,14 @@ function shuffle(array) {
 document.body.onload = startGame();
 
 
-// @description function to start a new play 
+// @description function to start a new play
 function startGame(){
- 
+
+    // Clear any pending unmatched timeouts to prevent errors
+    if (unmatchedTimeout) {
+        clearTimeout(unmatchedTimeout);
+    }
+
     // empty the openCards array
     openedCards = [];
 
@@ -64,7 +188,7 @@ function startGame(){
         [].forEach.call(cards, function(item) {
             deck.appendChild(item);
         });
-        cards[i].classList.remove("show", "open", "match", "disabled");
+        cards[i].classList.remove("show", "open", "match", "disabled", "unmatched");
     }
     // reset moves
     moves = 0;
@@ -76,7 +200,7 @@ function startGame(){
     }
     //reset timer
     second = 0;
-    minute = 0; 
+    minute = 0;
     hour = 0;
     var timer = document.querySelector(".timer");
     timer.innerHTML = "0 mins 0 secs";
@@ -89,6 +213,7 @@ var displayCard = function (){
     this.classList.toggle("open");
     this.classList.toggle("show");
     this.classList.toggle("disabled");
+    playFlipSound(); // 🔊 Play flip sound!
 };
 
 
@@ -114,17 +239,33 @@ function matched(){
     openedCards[0].classList.remove("show", "open", "no-event");
     openedCards[1].classList.remove("show", "open", "no-event");
     openedCards = [];
+
+    // 🎉 Play match sound and show message!
+    playMatchSound();
+    const messages = ["Great match! 🌟", "Awesome! 🎉", "Perfect! ⭐", "Nice one! 💫", "Brilliant! ✨"];
+    showMessage(messages[Math.floor(Math.random() * messages.length)], '#22c55e');
 }
 
+
+// Track unmatched timeout so we can clear it on restart
+var unmatchedTimeout;
 
 // description when cards don't match
 function unmatched(){
     openedCards[0].classList.add("unmatched");
     openedCards[1].classList.add("unmatched");
     disable();
-    setTimeout(function(){
-        openedCards[0].classList.remove("show", "open", "no-event","unmatched");
-        openedCards[1].classList.remove("show", "open", "no-event","unmatched");
+
+    // 🔊 Play wrong sound and show message!
+    playWrongSound();
+    const messages = ["Try again! 💪", "Keep going! 🎯", "Almost! 🌈", "You got this! 🚀"];
+    showMessage(messages[Math.floor(Math.random() * messages.length)], '#f97316');
+
+    unmatchedTimeout = setTimeout(function(){
+        if (openedCards[0] && openedCards[1]) {
+            openedCards[0].classList.remove("show", "open", "no-event","unmatched");
+            openedCards[1].classList.remove("show", "open", "no-event","unmatched");
+        }
         enable();
         openedCards = [];
     },1100);
@@ -201,9 +342,18 @@ function startTimer(){
 
 // @description congratulations when all cards match, show modal and moves, time and rating
 function congratulations(){
-    if (matchedCard.length == 16){
+    // Check if all cards are matched (dynamic based on difficulty)
+    const totalCards = cards.length;
+    if (matchedCard.length == totalCards){
         clearInterval(interval);
         finalTime = timer.innerHTML;
+
+        // 🎉 CELEBRATE WITH CONFETTI AND SOUNDS!
+        playWinSound();
+        celebrateWin();
+
+        // 🏆 Save high scores!
+        saveHighScore();
 
         // show congratulations modal
         modal.classList.add("show");
@@ -245,3 +395,175 @@ for (var i = 0; i < cards.length; i++){
     card.addEventListener("click", cardOpen);
     card.addEventListener("click",congratulations);
 };
+
+
+// ============================================
+// 🎵 BACKGROUND MUSIC & HIGH SCORES & DIFFICULTY
+// ============================================
+
+// Background music using Web Audio API
+let musicContext;
+let musicGainNode;
+let musicPlaying = false;
+let musicInterval;
+
+function createBackgroundMusic() {
+    if (!musicContext) {
+        musicContext = new (window.AudioContext || window.webkitAudioContext)();
+        musicGainNode = musicContext.createGain();
+        musicGainNode.gain.value = 0.1; // Quiet background music
+        musicGainNode.connect(musicContext.destination);
+    }
+}
+
+function playBackgroundMusic() {
+    if (musicPlaying) return;
+    createBackgroundMusic();
+    musicPlaying = true;
+
+    // Simple pleasant melody loop
+    const notes = [523, 587, 659, 698, 784, 698, 659, 587]; // C, D, E, F, G, F, E, D
+    let noteIndex = 0;
+
+    function playNote() {
+        if (!musicPlaying) return;
+
+        const oscillator = musicContext.createOscillator();
+        oscillator.connect(musicGainNode);
+        oscillator.type = 'sine';
+        oscillator.frequency.value = notes[noteIndex];
+        oscillator.start(musicContext.currentTime);
+        oscillator.stop(musicContext.currentTime + 0.3);
+
+        noteIndex = (noteIndex + 1) % notes.length;
+    }
+
+    musicInterval = setInterval(playNote, 500);
+    document.getElementById('musicToggle').textContent = '🔊 Music On';
+}
+
+function stopBackgroundMusic() {
+    musicPlaying = false;
+    if (musicInterval) clearInterval(musicInterval);
+    document.getElementById('musicToggle').textContent = '🔇 Music Off';
+}
+
+function toggleMusic() {
+    if (musicPlaying) {
+        stopBackgroundMusic();
+    } else {
+        playBackgroundMusic();
+    }
+}
+
+// Difficulty system - dynamically generate cards based on grid size
+let currentDifficulty = '4x4';
+
+// High Scores Management - Per Difficulty
+function loadHighScores() {
+    const difficulty = currentDifficulty;
+    const bestTime = localStorage.getItem(`bestTime_${difficulty}`) || '--';
+    const bestMoves = localStorage.getItem(`bestMoves_${difficulty}`) || '--';
+    document.getElementById('bestTime').textContent = bestTime;
+    document.getElementById('bestMoves').textContent = bestMoves;
+}
+
+function saveHighScore() {
+    const difficulty = currentDifficulty;
+    const currentMoves = moves;
+    const currentTime = finalTime;
+
+    // Save best moves (lowest is best) for this difficulty
+    const savedBestMoves = localStorage.getItem(`bestMoves_${difficulty}`);
+    if (!savedBestMoves || savedBestMoves === '--' || currentMoves < parseInt(savedBestMoves)) {
+        localStorage.setItem(`bestMoves_${difficulty}`, currentMoves);
+        document.getElementById('bestMoves').textContent = currentMoves;
+    }
+
+    // Save best time (convert to seconds for comparison) for this difficulty
+    const timeInSeconds = minute * 60 + second;
+    const savedBestTimeSeconds = localStorage.getItem(`bestTimeSeconds_${difficulty}`);
+    if (!savedBestTimeSeconds || timeInSeconds < parseInt(savedBestTimeSeconds)) {
+        localStorage.setItem(`bestTime_${difficulty}`, currentTime);
+        localStorage.setItem(`bestTimeSeconds_${difficulty}`, timeInSeconds);
+        document.getElementById('bestTime').textContent = currentTime;
+    }
+}
+
+// Fix initial grid layout on page load - regenerate cards properly
+window.addEventListener('load', function() {
+    // Wait a bit for DOM to be ready, then regenerate the default 4x4 grid
+    setTimeout(() => {
+        changeDifficulty();
+    }, 100);
+});
+
+function changeDifficulty() {
+    const difficulty = document.getElementById('difficulty').value;
+    currentDifficulty = difficulty;
+
+    // Parse grid size
+    const [cols, rows] = difficulty.split('x').map(Number);
+    const totalCards = cols * rows;
+
+    // Icon types to use
+    const iconTypes = ['diamond', 'plane', 'anchor', 'bolt', 'cube', 'leaf', 'bicycle', 'bomb',
+                       'heart', 'star', 'cloud', 'sun', 'moon', 'fire', 'snowflake', 'music',
+                       'bell', 'flag', 'gift', 'key', 'lock', 'magnet', 'paperclip', 'trophy'];
+
+    // Clear existing cards
+    deck.innerHTML = '';
+    cards = [];
+
+    // Generate pairs
+    const pairsNeeded = totalCards / 2;
+    const cardData = [];
+    for (let i = 0; i < pairsNeeded; i++) {
+        const icon = iconTypes[i % iconTypes.length];
+        cardData.push({type: icon, icon: icon});
+        cardData.push({type: icon, icon: icon});
+    }
+
+    // Shuffle
+    cardData.sort(() => 0.5 - Math.random());
+
+    // Create card elements
+    cardData.forEach((data, index) => {
+        const li = document.createElement('li');
+        li.className = 'card';
+        li.setAttribute('type', data.type);
+        li.innerHTML = `<i class="fa fa-${data.icon}"></i>`;
+        deck.appendChild(li);
+    });
+
+    // Update cards array
+    card = document.getElementsByClassName("card");
+    cards = [...card];
+
+    // Add event listeners
+    for (var i = 0; i < cards.length; i++){
+        cards[i].addEventListener("click", displayCard);
+        cards[i].addEventListener("click", cardOpen);
+        cards[i].addEventListener("click", congratulations);
+    }
+
+    // Adjust grid size in CSS
+    deck.style.gridTemplateColumns = `repeat(${cols}, 90px)`;
+    deck.style.gridTemplateRows = `repeat(${rows}, 90px)`;
+    deck.style.display = 'grid';
+    deck.style.gap = '10px';
+    deck.style.width = 'fit-content';
+    deck.style.height = 'auto';
+
+    // Update card sizes to be consistent
+    cards.forEach(card => {
+        card.style.width = '90px';
+        card.style.height = '90px';
+    });
+
+    // Load high scores for this difficulty
+    loadHighScores();
+
+    // Restart game
+    startGame();
+}
