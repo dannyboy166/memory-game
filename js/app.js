@@ -716,7 +716,7 @@ const themes = {
         {name: 'alien', emoji: '👽', display: 'Alien'},
         {name: 'planet', emoji: '🪐', display: 'Planet'},
         {name: 'earth', emoji: '🌍', display: 'Earth'},
-        {name: 'moon', emoji: '🌙', display: 'Moon'},
+        {name: 'moon', emoji: '🌑', display: 'Moon'},
         {name: 'star', emoji: '⭐', display: 'Star'},
         {name: 'comet', emoji: '☄️', display: 'Comet'},
         {name: 'sun', emoji: '☀️', display: 'Sun'},
@@ -728,11 +728,11 @@ const themes = {
         {name: 'crescentmoon', emoji: '🌙', display: 'Crescent Moon'},
         {name: 'shooting', emoji: '🌠', display: 'Shooting Star'},
         {name: 'ringed', emoji: '🪐', display: 'Ringed Planet'},
-        {name: 'meteor', emoji: '☄️', display: 'Meteor'},
-        {name: 'nebula', emoji: '🌌', display: 'Nebula'},
+        {name: 'meteor', emoji: '💫', display: 'Meteor'},
+        {name: 'nebula', emoji: '🌫️', display: 'Nebula'},
         {name: 'blackhole', emoji: '🕳️', display: 'Black Hole'},
         {name: 'constellation', emoji: '✨', display: 'Constellation'},
-        {name: 'spaceship', emoji: '🚀', display: 'Spaceship'},
+        {name: 'spaceship', emoji: '🌐', display: 'Spaceship'},
         {name: 'mars', emoji: '🔴', display: 'Mars'}
     ],
     food: [
@@ -890,6 +890,7 @@ function changeTheme() {
 // Color debugger - shows all 24 card colors
 function updateColorDebugger() {
     const debugGrid = document.getElementById('debugGrid');
+    if (!debugGrid) return; // Exit if debugger is not in the DOM
     debugGrid.innerHTML = '';
 
     const themeData = themes[currentTheme];
