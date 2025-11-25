@@ -55,17 +55,33 @@
             <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔊 Music On</button>
         </div>
 
+        <!-- Multiplayer Name Input (hidden in single player mode) -->
+        <div class="name-input-section" id="nameInputSection" style="display: none;">
+            <div class="name-input-group">
+                <label for="player1Name">Player 1:</label>
+                <input type="text" id="player1Name" placeholder="Enter name" maxlength="15">
+            </div>
+            <div class="name-input-group">
+                <label for="player2Name">Player 2:</label>
+                <input type="text" id="player2Name" placeholder="Enter name" maxlength="15">
+            </div>
+            <div class="name-buttons">
+                <button id="startMultiplayer" onclick="setPlayerNames()">Start Game</button>
+                <button id="skipNames" onclick="skipNames()">Skip</button>
+            </div>
+        </div>
+
         <!-- Multiplayer Scores (hidden in single player mode) -->
         <div class="multiplayer-scores" id="multiplayerScores" style="display: none;">
             <div class="player-score" id="player1Score">
-                <h3>👤 Player 1</h3>
+                <h3 id="player1Header">👤 Player 1</h3>
                 <p class="score">0 pairs</p>
             </div>
             <div class="current-turn" id="currentTurn">
                 Player 1's Turn
             </div>
             <div class="player-score" id="player2Score">
-                <h3>👤 Player 2</h3>
+                <h3 id="player2Header">👤 Player 2</h3>
                 <p class="score">0 pairs</p>
             </div>
         </div>

@@ -99,6 +99,96 @@ h1 {
 	transform: scale(1.05);
 }
 
+/* Multiplayer Name Input */
+.name-input-section {
+	background: white;
+	padding: 20px 30px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-bottom: 20px;
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	max-width: 600px;
+}
+
+.name-input-group {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.name-input-group label {
+	font-weight: bold;
+	color: #6b7280;
+	font-size: 16px;
+	white-space: nowrap;
+}
+
+.name-input-group input {
+	padding: 8px 12px;
+	border-radius: 8px;
+	border: 2px solid #7ab9f1;
+	font-size: 16px;
+	font-family: 'Gloria Hallelujah', cursive;
+	background: white;
+	transition: all 0.3s;
+	min-width: 150px;
+}
+
+.name-input-group input:focus {
+	outline: none;
+	border-color: #22c55e;
+	transform: scale(1.02);
+}
+
+.name-buttons {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+#startMultiplayer {
+	padding: 8px 25px;
+	border-radius: 8px;
+	border: 2px solid #22c55e;
+	background: #22c55e;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s;
+	font-family: 'Permanent Marker', cursive;
+}
+
+#startMultiplayer:hover {
+	background: #16a34a;
+	border-color: #16a34a;
+	transform: scale(1.05);
+}
+
+#skipNames {
+	padding: 8px 25px;
+	border-radius: 8px;
+	border: 2px solid #6b7280;
+	background: white;
+	color: #6b7280;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s;
+	font-family: 'Permanent Marker', cursive;
+}
+
+#skipNames:hover {
+	background: #f3f4f6;
+	border-color: #4b5563;
+	color: #4b5563;
+	transform: scale(1.05);
+}
+
 /* Multiplayer Scores */
 .multiplayer-scores {
 	display: flex;

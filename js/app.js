@@ -162,6 +162,8 @@ let isMultiplayer = false;
 let currentPlayer = 1;
 let player1Score = 0;
 let player2Score = 0;
+let player1Name = "Player 1";
+let player2Name = "Player 2";
 
 
 // @description shuffles cards
@@ -310,7 +312,8 @@ function matched(){
     // Show streak-based or player messages
     let message;
     if (isMultiplayer) {
-        message = `Player ${currentPlayer} scored! 🎉`;
+        const currentName = currentPlayer === 1 ? player1Name : player2Name;
+        message = `${currentName} scored! 🎉`;
     } else if (currentStreak >= 5) {
         message = "🔥 ON FIRE! " + currentStreak + " in a row!";
     } else if (currentStreak >= 3) {
@@ -488,9 +491,9 @@ function congratulations(){
         if (isMultiplayer) {
             let winnerMessage;
             if (player1Score > player2Score) {
-                winnerMessage = `🏆 Player 1 WINS! 🏆<br>${player1Score} vs ${player2Score}`;
+                winnerMessage = `🏆 ${player1Name} WINS! 🏆<br>${player1Score} vs ${player2Score}`;
             } else if (player2Score > player1Score) {
-                winnerMessage = `🏆 Player 2 WINS! 🏆<br>${player2Score} vs ${player1Score}`;
+                winnerMessage = `🏆 ${player2Name} WINS! 🏆<br>${player2Score} vs ${player1Score}`;
             } else {
                 winnerMessage = `🤝 IT'S A TIE! 🤝<br>${player1Score} - ${player2Score}`;
             }
@@ -807,19 +810,62 @@ function changeGameMode() {
     isMultiplayer = (mode === 'multiplayer');
 
     // Toggle UI visibility
+    const nameInputSection = document.getElementById('nameInputSection');
     const multiplayerScores = document.getElementById('multiplayerScores');
     const scoresContainer = document.querySelector('.scores-container');
 
     if (isMultiplayer) {
-        multiplayerScores.style.display = 'flex';
-        // Hide single player stats (timer, moves, stars) in multiplayer
+        // Show name input section, hide scores until names are set
+        nameInputSection.style.display = 'flex';
+        multiplayerScores.style.display = 'none';
         scoresContainer.style.opacity = '0.5';
     } else {
+        nameInputSection.style.display = 'none';
         multiplayerScores.style.display = 'none';
         scoresContainer.style.opacity = '1';
+        // Reset and restart game for single player
+        changeDifficulty();
     }
+}
 
-    // Reset and restart game
+function setPlayerNames() {
+    const p1Input = document.getElementById('player1Name').value.trim();
+    const p2Input = document.getElementById('player2Name').value.trim();
+
+    // Use input names or default to "Player 1" / "Player 2"
+    player1Name = p1Input || "Player 1";
+    player2Name = p2Input || "Player 2";
+
+    // Update UI with names
+    document.getElementById('player1Header').textContent = `👤 ${player1Name}`;
+    document.getElementById('player2Header').textContent = `👤 ${player2Name}`;
+
+    // Hide name input, show scores
+    document.getElementById('nameInputSection').style.display = 'none';
+    document.getElementById('multiplayerScores').style.display = 'flex';
+
+    // Start the game
+    changeDifficulty();
+}
+
+function skipNames() {
+    // Use default names
+    player1Name = "Player 1";
+    player2Name = "Player 2";
+
+    // Update UI with default names
+    document.getElementById('player1Header').textContent = `👤 ${player1Name}`;
+    document.getElementById('player2Header').textContent = `👤 ${player2Name}`;
+
+    // Clear input fields
+    document.getElementById('player1Name').value = '';
+    document.getElementById('player2Name').value = '';
+
+    // Hide name input, show scores
+    document.getElementById('nameInputSection').style.display = 'none';
+    document.getElementById('multiplayerScores').style.display = 'flex';
+
+    // Start the game
     changeDifficulty();
 }
 
@@ -907,8 +953,9 @@ function switchPlayer() {
 function updateMultiplayerUI() {
     if (!isMultiplayer) return;
 
-    // Update turn indicator
-    document.getElementById('currentTurn').textContent = `Player ${currentPlayer}'s Turn`;
+    // Update turn indicator with player name
+    const currentName = currentPlayer === 1 ? player1Name : player2Name;
+    document.getElementById('currentTurn').textContent = `${currentName}'s Turn`;
 
     // Update scores
     document.querySelector('#player1Score .score').textContent = `${player1Score} pairs`;
