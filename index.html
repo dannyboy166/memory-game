@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Memory Game</title>
+    <title>Memory Mania</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -14,37 +14,44 @@
 
     <div class="container">
         <header>
-            <h1>🎮 Memory Game 🎮</h1>
+            <h1>🎮 Memory Mania 🎮</h1>
         </header>
 
         <!-- Difficulty and Theme Selectors -->
         <div class="difficulty-selector">
-            <label for="gameMode">Mode:</label>
-            <select id="gameMode" onchange="changeGameMode()">
-                <option value="single" selected>1 Player</option>
-                <option value="multiplayer">2 Players</option>
-            </select>
+            <div class="selector-group">
+                <label for="gameMode">Mode:</label>
+                <select id="gameMode" onchange="changeGameMode()">
+                    <option value="single" selected>1 Player</option>
+                    <option value="multiplayer">2 Players</option>
+                </select>
+            </div>
 
-            <label for="theme">Theme:</label>
-            <select id="theme" onchange="changeTheme()">
-                <option value="australian" selected>🦘 Australian</option>
-                <option value="animals">🐶 Animals</option>
-                <option value="space">🚀 Space</option>
-                <option value="food">🍕 Food</option>
-                <option value="sports">⚽ Sports</option>
-                <option value="faces">😀 Faces</option>
-            </select>
+            <div class="selector-group">
+                <label for="theme">Theme:</label>
+                <select id="theme" onchange="changeTheme()">
+                    <option value="australian" selected>🦘 Australian</option>
+                    <option value="animals">🐶 Animals</option>
+                    <option value="space">🚀 Space</option>
+                    <option value="food">🍕 Food</option>
+                    <option value="sports">⚽ Sports</option>
+                    <option value="faces">😀 Faces</option>
+                </select>
+            </div>
 
-            <label for="difficulty">Difficulty:</label>
-            <select id="difficulty" onchange="changeDifficulty()">
-                <option value="3x2">Easy (3×2)</option>
-                <option value="4x3">Medium (4×3)</option>
-                <option value="4x4" selected>Normal (4×4)</option>
-                <option value="5x4">Hard (5×4)</option>
-                <option value="6x4">Very Hard (6×4)</option>
-                <option value="6x6">Expert (6×6)</option>
-                <option value="8x6">Impossible (8×6)</option>
-            </select>
+            <div class="selector-group">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty" onchange="changeDifficulty()">
+                    <option value="3x2">Easy (3×2)</option>
+                    <option value="4x3">Medium (4×3)</option>
+                    <option value="4x4" selected>Normal (4×4)</option>
+                    <option value="5x4">Hard (5×4)</option>
+                    <option value="6x4">Very Hard (6×4)</option>
+                    <option value="6x6">Expert (6×6)</option>
+                    <option value="8x6">Impossible (8×6)</option>
+                </select>
+            </div>
+
             <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔊 Music On</button>
         </div>
 
@@ -169,11 +176,11 @@
         </div>
 
         <!-- Color Palette Debugger (for development) -->
-        <div class="color-debugger" id="colorDebugger">
+        <!-- <div class="color-debugger" id="colorDebugger">
             <h3>🎨 Color Palette Tester</h3>
             <p style="font-size: 14px; color: #666; margin: 10px 0;">Shows all 24 card colors for current theme</p>
             <div class="debug-grid" id="debugGrid"></div>
-        </div>
+        </div> -->
 
         <footer class="sasco-footer">
             <p>Part of the <strong>SASCO Games</strong> collection for schools 🎓</p>

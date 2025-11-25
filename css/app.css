@@ -51,8 +51,14 @@ h1 {
 	align-items: center;
 	justify-content: center;
 	gap: 15px;
-	flex-wrap: wrap;
-	max-width: 600px;
+	flex-wrap: wrap; /* Allow wrapping, but groups stay together */
+}
+
+.selector-group {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	white-space: nowrap; /* Keep label and select together */
 }
 
 .difficulty-selector label {
