@@ -93,6 +93,67 @@ h1 {
 	transform: scale(1.05);
 }
 
+/* Multiplayer Scores */
+.multiplayer-scores {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 20px;
+	max-width: 700px;
+}
+
+.player-score {
+	background: white;
+	padding: 20px 30px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	flex: 1;
+	transition: all 0.3s;
+}
+
+.player-score.active {
+	background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+	transform: scale(1.05);
+	box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+.player-score.active h3 {
+	color: white;
+}
+
+.player-score.active .score {
+	color: white;
+}
+
+.player-score h3 {
+	margin: 0 0 10px 0;
+	color: #6b7280;
+	font-family: 'Gloria Hallelujah', cursive;
+	font-size: 1.3rem;
+}
+
+.player-score .score {
+	margin: 0;
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: #22c55e;
+	font-family: 'Permanent Marker', cursive;
+}
+
+.current-turn {
+	background: linear-gradient(135deg, #7ab9f1 0%, #a7f0f5 100%);
+	padding: 15px 25px;
+	border-radius: 12px;
+	font-weight: bold;
+	color: white;
+	font-size: 1.2rem;
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	animation: pulse 1s ease infinite;
+}
+
 /* Scores Container - holds both high scores and score panel horizontally */
 .scores-container {
 	display: flex;
@@ -313,7 +374,7 @@ h1 {
 
 .deck .card.match {
 	cursor: default;
-	background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); /* SASCO green gradient for matches! */
+	background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%) !important; /* GREEN for correct match! */
 	font-size: 45px;
 	animation-name: rubberBand;
 	-webkit-backface-visibility: visible !important;
@@ -328,7 +389,7 @@ h1 {
 	-webkit-backface-visibility: visible !important;
 	backface-visibility: visible !important;
 	animation-duration: .75s;
-	background: #ef4444; /* Red for wrong match */
+	background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; /* RED for wrong match! */
 }
 
 .deck .card.disabled {
@@ -532,42 +593,77 @@ h1 {
 	}
 
 	30% {
-		transform: scale3d(1.25, 0.75, 1);
+		transform: scale3d(1.35, 0.65, 1) rotate(5deg);
 	}
 
 	40% {
-		transform: scale3d(0.75, 1.25, 1);
+		transform: scale3d(0.65, 1.35, 1) rotate(-5deg);
 	}
 
 	50% {
-		transform: scale3d(1.15, 0.85, 1);
+		transform: scale3d(1.25, 0.75, 1) rotate(3deg);
 	}
 
 	65% {
-		transform: scale3d(.95, 1.05, 1);
+		transform: scale3d(.85, 1.15, 1) rotate(-3deg);
 	}
 
 	75% {
-		transform: scale3d(1.05, .95, 1);
+		transform: scale3d(1.1, .9, 1) rotate(2deg);
 	}
 
 	to {
-		transform: scale3d(1, 1, 1);
+		transform: scale3d(1, 1, 1) rotate(0deg);
 	}
 }
 
 @keyframes pulse {
-	from {
+	0% {
 		transform: scale3d(1, 1, 1);
+	}
+
+	25% {
+		transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
 	}
 
 	50% {
-		transform: scale3d(1.2, 1.2, 1.2);
+		transform: scale3d(1.25, 1.25, 1.25) rotate(3deg);
 	}
 
-	to {
-		transform: scale3d(1, 1, 1);
+	75% {
+		transform: scale3d(1.1, 1.1, 1.1) rotate(-2deg);
 	}
+
+	100% {
+		transform: scale3d(1, 1, 1) rotate(0deg);
+	}
+}
+
+/* Sparkle particle effect */
+@keyframes sparkle {
+	0% {
+		transform: translate(0, 0) scale(0) rotate(0deg);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(var(--tx), var(--ty)) scale(1) rotate(360deg);
+		opacity: 0;
+	}
+}
+
+.sparkle {
+	position: absolute;
+	width: 12px;
+	height: 12px;
+	pointer-events: none;
+	z-index: 100;
+}
+
+.sparkle::before {
+	content: '✨';
+	position: absolute;
+	font-size: 20px;
+	animation: sparkle 0.8s ease-out forwards;
 }
 
 
@@ -590,6 +686,62 @@ h1 {
 
 /* For Tablets and larger screens
 ****************/
+
+/* Color Debugger */
+.color-debugger {
+	margin-top: 30px;
+	padding: 20px;
+	background: white;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	max-width: 800px;
+}
+
+.color-debugger h3 {
+	margin: 0 0 5px 0;
+	color: #6b7280;
+	font-family: 'Gloria Hallelujah', cursive;
+}
+
+.debug-grid {
+	display: grid;
+	grid-template-columns: repeat(8, 80px);
+	grid-template-rows: repeat(3, 80px);
+	gap: 10px;
+	justify-content: center;
+	margin-top: 15px;
+}
+
+.debug-card {
+	height: 80px;
+	width: 80px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	border: 2px solid rgba(255,255,255,0.3);
+	cursor: pointer;
+	transition: transform 0.2s;
+}
+
+.debug-card:hover {
+	transform: scale(1.1);
+}
+
+.debug-card .emoji {
+	font-size: 40px;
+	margin-bottom: 2px;
+}
+
+.debug-card .label {
+	font-size: 9px;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0.9);
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
 
 /* SASCO Footer Styles */
 

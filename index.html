@@ -17,8 +17,24 @@
             <h1>🎮 Memory Game 🎮</h1>
         </header>
 
-        <!-- Difficulty Selector -->
+        <!-- Difficulty and Theme Selectors -->
         <div class="difficulty-selector">
+            <label for="gameMode">Mode:</label>
+            <select id="gameMode" onchange="changeGameMode()">
+                <option value="single" selected>1 Player</option>
+                <option value="multiplayer">2 Players</option>
+            </select>
+
+            <label for="theme">Theme:</label>
+            <select id="theme" onchange="changeTheme()">
+                <option value="australian" selected>🦘 Australian</option>
+                <option value="animals">🐶 Animals</option>
+                <option value="space">🚀 Space</option>
+                <option value="food">🍕 Food</option>
+                <option value="sports">⚽ Sports</option>
+                <option value="faces">😀 Faces</option>
+            </select>
+
             <label for="difficulty">Difficulty:</label>
             <select id="difficulty" onchange="changeDifficulty()">
                 <option value="3x2">Easy (3×2)</option>
@@ -29,7 +45,22 @@
                 <option value="6x6">Expert (6×6)</option>
                 <option value="8x6">Impossible (8×6)</option>
             </select>
-            <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔇 Music Off</button>
+            <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔊 Music On</button>
+        </div>
+
+        <!-- Multiplayer Scores (hidden in single player mode) -->
+        <div class="multiplayer-scores" id="multiplayerScores" style="display: none;">
+            <div class="player-score" id="player1Score">
+                <h3>👤 Player 1</h3>
+                <p class="score">0 pairs</p>
+            </div>
+            <div class="current-turn" id="currentTurn">
+                Player 1's Turn
+            </div>
+            <div class="player-score" id="player2Score">
+                <h3>👤 Player 2</h3>
+                <p class="score">0 pairs</p>
+            </div>
         </div>
 
         <!-- High Scores and Score Panel Container -->
@@ -43,6 +74,10 @@
                 <div class="high-score-item">
                     <span>⭐ Best Moves:</span>
                     <span id="bestMoves">--</span>
+                </div>
+                <div class="high-score-item" id="streakDisplay" style="display: none;">
+                    <span>🔥 Streak:</span>
+                    <span id="streakCount">0</span>
                 </div>
             </div>
 
@@ -133,10 +168,18 @@
             </div>
         </div>
 
+        <!-- Color Palette Debugger (for development) -->
+        <div class="color-debugger" id="colorDebugger">
+            <h3>🎨 Color Palette Tester</h3>
+            <p style="font-size: 14px; color: #666; margin: 10px 0;">Shows all 24 card colors for current theme</p>
+            <div class="debug-grid" id="debugGrid"></div>
+        </div>
+
         <footer class="sasco-footer">
             <p>Part of the <strong>SASCO Games</strong> collection for schools 🎓</p>
-            <p class="attribution">Original concept by Udacity FEND Program | Customized for SASCO</p>
         </footer>
+
+        <!-- Original concept by Udacity FEND Program | Customized for SASCO -->
 
     </div>
 

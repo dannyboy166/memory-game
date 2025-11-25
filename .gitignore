@@ -1,2 +1,5 @@
 .stylelintrc.json
 launch.json
+
+# Original audio source files (keep locally, don't push to GitHub)
+Light Quiz Music Pack/
