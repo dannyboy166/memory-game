@@ -18,7 +18,7 @@ body {
 
 body {
 	background: #a7f0f5; /* SASCO light cyan */
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 	font-size: 16px;
 }
 
@@ -31,13 +31,35 @@ body {
 }
 
 h1 {
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Fredoka One', cursive;
 	color: #f4ef7d; /* SASCO soft yellow */
 	font-size: 3.5rem;
 	-webkit-text-stroke: 2px #000;
 	text-stroke: 2px #000;
 	text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
 	margin: 10px 0 15px 0;
+	white-space: nowrap; /* Keep title on one line */
+}
+
+/* Font Tester */
+.font-tester {
+	background: white;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.font-tester h2 {
+	margin: 10px 0 5px 0;
+	font-size: 2.5rem;
+	color: #f4ef7d;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.font-tester p {
+	margin: 0 0 20px 0;
 }
 
 /* Difficulty Selector */
@@ -51,7 +73,14 @@ h1 {
 	align-items: center;
 	justify-content: center;
 	gap: 15px;
-	flex-wrap: wrap; /* Allow wrapping, but groups stay together */
+	flex-wrap: wrap; /* Allow rows to wrap */
+}
+
+.selector-row {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	white-space: nowrap; /* Keep items in row together */
 }
 
 .selector-group {
@@ -72,7 +101,7 @@ h1 {
 	border-radius: 8px;
 	border: 2px solid #7ab9f1;
 	font-size: 16px;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 	background: white;
 	cursor: pointer;
 	transition: all 0.3s;
@@ -110,21 +139,20 @@ h1 {
 	gap: 20px;
 	align-items: center;
 	justify-content: center;
-	flex-wrap: wrap;
-	max-width: 600px;
+	flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .name-input-group {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	white-space: nowrap; /* Keep label and input together as one unit */
 }
 
 .name-input-group label {
 	font-weight: bold;
 	color: #6b7280;
 	font-size: 16px;
-	white-space: nowrap;
 }
 
 .name-input-group input {
@@ -132,7 +160,7 @@ h1 {
 	border-radius: 8px;
 	border: 2px solid #7ab9f1;
 	font-size: 16px;
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 	background: white;
 	transition: all 0.3s;
 	min-width: 150px;
@@ -160,7 +188,7 @@ h1 {
 	font-weight: bold;
 	cursor: pointer;
 	transition: all 0.3s;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 }
 
 #startMultiplayer:hover {
@@ -179,7 +207,7 @@ h1 {
 	font-weight: bold;
 	cursor: pointer;
 	transition: all 0.3s;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 }
 
 #skipNames:hover {
@@ -226,7 +254,7 @@ h1 {
 .player-score h3 {
 	margin: 0 0 10px 0;
 	color: #6b7280;
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 	font-size: 1.3rem;
 }
 
@@ -235,7 +263,7 @@ h1 {
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: #22c55e;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 }
 
 .current-turn {
@@ -258,22 +286,23 @@ h1 {
 	align-items: stretch;
 	flex-wrap: wrap;
 	margin-bottom: 20px;
-	max-width: 900px;
+	max-width: 1100px;
+	width: 100%;
 }
 
 /* High Scores */
 .high-scores {
 	background: white;
-	padding: 15px 25px;
+	padding: 20px 35px;
 	border-radius: 12px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	display: flex;
-	gap: 30px;
+	gap: 40px;
 	justify-content: center;
 	align-items: center;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	flex: 1;
-	min-width: 250px;
+	min-width: 400px;
 }
 
 .high-score-item {
@@ -281,19 +310,21 @@ h1 {
 	flex-direction: column;
 	align-items: center;
 	gap: 5px;
+	min-width: 150px;
 }
 
 .high-score-item span:first-child {
 	font-weight: bold;
 	color: #6b7280;
 	font-size: 14px;
+	white-space: nowrap;
 }
 
 .high-score-item span:last-child {
 	font-size: 24px;
 	font-weight: bold;
 	color: #22c55e;
-	font-family: 'Permanent Marker', cursive;
+	font-family: 'Baloo 2', cursive;
 }
 
 
@@ -510,7 +541,7 @@ h1 {
 	justify-content: space-between;
 	flex-wrap: wrap;
 	flex: 1;
-	min-width: 250px;
+	min-width: 350px;
 }
 
 .score-panel .stars {
@@ -585,14 +616,14 @@ h1 {
 	width: 85%;
 	position: relative;
 	transition: all 5s ease-in-out;
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .popup h2 {
 	margin-top: 0;
 	color: #f4ef7d; /* SASCO yellow */
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 	font-size: 2.5rem;
 	-webkit-text-stroke: 1px #000;
 	text-stroke: 1px #000;
@@ -642,7 +673,7 @@ h1 {
 	display: block;
 	margin: 20px auto 0;
 	width: 60%;
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 	color: #ffffff;
 	border-radius: 10px;
 	border: none;
@@ -766,8 +797,35 @@ h1 {
 /****** Media queries
 ***************************/
 
+/* Responsive title sizing */
+@media (max-width: 768px) {
+	h1 {
+		font-size: 2.5rem;
+	}
+
+	/* Make stats bigger on portrait/mobile */
+	.score-panel {
+		font-size: 1.5rem;
+	}
+
+	.moves, .timer {
+		font-size: 1.8rem;
+	}
+}
+
+@media (max-width: 480px) {
+	h1 {
+		font-size: 2rem;
+	}
+}
 
 @media (max-width: 320px) {
+	h1 {
+		font-size: 1.5rem;
+		-webkit-text-stroke: 1px #000;
+		text-stroke: 1px #000;
+	}
+
 	.deck {
 		max-width: calc(100vw - 20px);
 		padding: 1rem;
@@ -797,7 +855,7 @@ h1 {
 .color-debugger h3 {
 	margin: 0 0 5px 0;
 	color: #6b7280;
-	font-family: 'Gloria Hallelujah', cursive;
+	font-family: 'Baloo 2', cursive;
 }
 
 .debug-grid {

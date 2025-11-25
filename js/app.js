@@ -231,6 +231,7 @@ function startGame(){
     // reset moves
     moves = 0;
     counter.innerHTML = moves;
+    document.getElementById('moveText').textContent = 'moves';
     // reset rating
     for (var i= 0; i < stars.length; i++){
         stars[i].style.color = "#FFD700";
@@ -430,10 +431,21 @@ function enable(){
 function moveCounter(){
     moves++;
     counter.innerHTML = moves;
+
+    // Update move text (0 moves, 1 move, 2+ moves)
+    const moveText = document.getElementById('moveText');
+    if (moves === 0) {
+        moveText.textContent = 'moves';
+    } else if (moves === 1) {
+        moveText.textContent = 'move';
+    } else {
+        moveText.textContent = 'moves';
+    }
+
     //start timer on first click
     if(moves == 1){
         second = 0;
-        minute = 0; 
+        minute = 0;
         hour = 0;
         startTimer();
     }

@@ -8,6 +8,8 @@
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Permanent+Marker" >
+    <!-- Font testing -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Baloo+2:wght@700&family=Bubblegum+Sans&family=Poppins:wght@600;700&family=Patrick+Hand&family=Indie+Flower&family=Architects+Daughter&family=Lilita+One&family=Righteous&family=Titan+One&display=swap">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -17,42 +19,79 @@
             <h1>🎮 Memory Mania 🎮</h1>
         </header>
 
+        <!-- Font Testing Section (commented out for production) -->
+        <!-- <div class="font-tester">
+            <h2 style="font-family: 'Fredoka One', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Fredoka One</p>
+
+            <h2 style="font-family: 'Baloo 2', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Baloo 2</p>
+
+            <h2 style="font-family: 'Bubblegum Sans', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Bubblegum Sans</p>
+
+            <h2 style="font-family: 'Poppins', sans-serif; font-weight: 700;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Poppins Bold</p>
+
+            <h2 style="font-family: 'Patrick Hand', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Patrick Hand</p>
+
+            <h2 style="font-family: 'Indie Flower', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Indie Flower</p>
+
+            <h2 style="font-family: 'Architects Daughter', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Architects Daughter</p>
+
+            <h2 style="font-family: 'Lilita One', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Lilita One</p>
+
+            <h2 style="font-family: 'Righteous', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Righteous</p>
+
+            <h2 style="font-family: 'Titan One', cursive;">🎮 Memory Mania 🎮</h2>
+            <p style="font-size: 12px; color: #666;">Titan One</p>
+        </div> -->
+
         <!-- Difficulty and Theme Selectors -->
         <div class="difficulty-selector">
-            <div class="selector-group">
-                <label for="gameMode">Mode:</label>
-                <select id="gameMode" onchange="changeGameMode()">
-                    <option value="single" selected>1 Player</option>
-                    <option value="multiplayer">2 Players</option>
-                </select>
+            <div class="selector-row">
+                <div class="selector-group">
+                    <label for="gameMode">Mode:</label>
+                    <select id="gameMode" onchange="changeGameMode()">
+                        <option value="single" selected>1 Player</option>
+                        <option value="multiplayer">2 Players</option>
+                    </select>
+                </div>
+
+                <div class="selector-group">
+                    <label for="theme">Theme:</label>
+                    <select id="theme" onchange="changeTheme()">
+                        <option value="australian" selected>🦘 Australian</option>
+                        <option value="animals">🐶 Animals</option>
+                        <option value="space">🚀 Space</option>
+                        <option value="food">🍕 Food</option>
+                        <option value="sports">⚽ Sports</option>
+                        <option value="faces">😀 Faces</option>
+                    </select>
+                </div>
             </div>
 
-            <div class="selector-group">
-                <label for="theme">Theme:</label>
-                <select id="theme" onchange="changeTheme()">
-                    <option value="australian" selected>🦘 Australian</option>
-                    <option value="animals">🐶 Animals</option>
-                    <option value="space">🚀 Space</option>
-                    <option value="food">🍕 Food</option>
-                    <option value="sports">⚽ Sports</option>
-                    <option value="faces">😀 Faces</option>
-                </select>
-            </div>
+            <div class="selector-row">
+                <div class="selector-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty" onchange="changeDifficulty()">
+                        <option value="3x2">Easy (3×2)</option>
+                        <option value="4x3">Medium (4×3)</option>
+                        <option value="4x4" selected>Normal (4×4)</option>
+                        <option value="5x4">Hard (5×4)</option>
+                        <option value="6x4">Very Hard (6×4)</option>
+                        <option value="6x6">Expert (6×6)</option>
+                        <option value="8x6">Impossible (8×6)</option>
+                    </select>
+                </div>
 
-            <div class="selector-group">
-                <label for="difficulty">Difficulty:</label>
-                <select id="difficulty" onchange="changeDifficulty()">
-                    <option value="3x2">Easy (3×2)</option>
-                    <option value="4x3">Medium (4×3)</option>
-                    <option value="4x4" selected>Normal (4×4)</option>
-                    <option value="5x4">Hard (5×4)</option>
-                    <option value="6x4">Very Hard (6×4)</option>
-                    <option value="6x6">Expert (6×6)</option>
-                    <option value="8x6">Impossible (8×6)</option>
-                </select>
+                <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔊 Music On</button>
             </div>
-
-            <button id="musicToggle" onclick="toggleMusic()" class="music-btn">🔊 Music On</button>
         </div>
 
         <!-- Multiplayer Name Input (hidden in single player mode) -->
@@ -111,7 +150,7 @@
                     <li><i class="fa fa-star"></i></li>
                 </ul>
 
-                <span class="moves">0</span> Move(s)
+                <span class="moves">0</span> <span id="moveText">moves</span>
 
                 <div class="timer">
                 </div>
