@@ -387,39 +387,18 @@ function unmatched(){
 
     unmatchedTimeout = setTimeout(function(){
         if (openedCards[0] && openedCards[1]) {
-            // Remove unmatched class and hide emoji (remove show class)
-            openedCards[0].classList.remove("unmatched", "show");
-            openedCards[1].classList.remove("unmatched", "show");
+            openedCards[0].classList.remove("show", "open", "no-event","unmatched");
+            openedCards[1].classList.remove("show", "open", "no-event","unmatched");
+            // Reset to grey card back
+            openedCards[0].style.background = '';
+            openedCards[1].style.background = '';
+        }
+        enable();
+        openedCards = [];
 
-            // Add flip-back animation
-            openedCards[0].classList.add("flipping-back");
-            openedCards[1].classList.add("flipping-back");
-
-            // Wait for flip animation to complete before removing classes
-            setTimeout(function() {
-                if (openedCards[0] && openedCards[1]) {
-                    openedCards[0].classList.remove("open", "no-event", "flipping-back");
-                    openedCards[1].classList.remove("open", "no-event", "flipping-back");
-                    // Reset to grey card back
-                    openedCards[0].style.background = '';
-                    openedCards[1].style.background = '';
-                }
-                enable();
-                openedCards = [];
-
-                // Multiplayer: Switch turns on wrong match
-                if (isMultiplayer) {
-                    switchPlayer();
-                }
-            }, 600); // Match the flipOutY animation duration
-        } else {
-            enable();
-            openedCards = [];
-
-            // Multiplayer: Switch turns on wrong match
-            if (isMultiplayer) {
-                switchPlayer();
-            }
+        // Multiplayer: Switch turns on wrong match
+        if (isMultiplayer) {
+            switchPlayer();
         }
     },1100);
 }
