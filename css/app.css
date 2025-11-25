@@ -392,6 +392,13 @@ h1 {
 	background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; /* RED for wrong match! */
 }
 
+.deck .card.flipping-back {
+	animation-name: flipOutY;
+	-webkit-backface-visibility: visible !important;
+	backface-visibility: visible !important;
+	animation-duration: .6s;
+}
+
 .deck .card.disabled {
 	pointer-events: none;
 	opacity: 0.9;
@@ -584,6 +591,21 @@ h1 {
 
 	to {
 		transform: perspective(400px);
+	}
+}
+
+@keyframes flipOutY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 0deg);
+	}
+
+	30% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -15deg);
+	}
+
+	to {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		opacity: 0;
 	}
 }
 
